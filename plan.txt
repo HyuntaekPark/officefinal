@@ -1,0 +1,350 @@
+You are a senior full-stack software architect.
+
+Create a production-quality web application for managing and searching teacher Office Hours for Korea Science Academy (KSA).
+
+The application must allow students to search teacher Office Hours and allow administrators to manually manage teacher data.
+
+Do NOT use Excel files.  
+Teacher information must be manually entered through an admin interface.
+
+Follow clean architecture and modular design principles.
+
+
+
+========================
+PROJECT GOAL
+========================
+
+Students should be able to:
+
+1. Search teachers by name
+2. See teacher Office Hour and office location
+3. Filter teachers by day and period
+4. View teachers who currently have Office Hour based on Korean time
+
+
+
+========================
+TECH STACK
+========================
+
+Frontend
+React + Vite
+
+Backend
+Node.js + Express
+
+Database
+SQLite
+
+Timezone
+Asia/Seoul
+
+Language
+JavaScript (not TypeScript)
+
+
+
+========================
+PROJECT STRUCTURE
+========================
+
+Create the following folder structure.
+
+backend/
+    server.js
+    routes/
+        teachers.js
+    controllers/
+        teacherController.js
+    database/
+        db.js
+        schema.sql
+    utils/
+        periodCalculator.js
+
+frontend/
+    index.html
+    src/
+        main.jsx
+        App.jsx
+        pages/
+            TeacherSearch.jsx
+            CurrentOfficeHour.jsx
+            AdminPage.jsx
+        components/
+            TeacherCard.jsx
+            SearchBar.jsx
+            PeriodSelector.jsx
+        services/
+            api.js
+
+shared/
+    models/
+
+
+Ensure clean separation of concerns.
+
+
+
+========================
+DATABASE DESIGN
+========================
+
+Table: teachers
+
+id INTEGER PRIMARY KEY
+name TEXT
+department TEXT
+subjects TEXT
+office TEXT
+phone TEXT
+
+
+Table: office_hours
+
+id INTEGER PRIMARY KEY
+teacher_id INTEGER
+day TEXT
+period INTEGER
+
+
+Example:
+
+teacher
+--------------------------------
+name: "홍길동"
+department: "화학생물학부"
+subjects: "화학I,고급화학"
+office: "창602"
+phone: "051-606-2340"
+
+
+office_hours
+--------------------------------
+teacher_id: 1
+day: "Mon"
+period: 5
+
+
+
+========================
+CLASS PERIOD TIME TABLE
+========================
+
+Define class periods as constants.
+
+1st period  08:30–09:20  
+2nd period  09:30–10:20  
+3rd period  10:30–11:20  
+4th period  11:30–12:20  
+5th period  13:30–14:20  
+6th period  14:30–15:20  
+7th period  15:30–16:20  
+8th period  16:30–17:20  
+
+
+Create utility file:
+
+utils/periodCalculator.js
+
+Function:
+
+getCurrentPeriod()
+
+Return format:
+
+{
+  day: "Mon",
+  period: 5
+}
+
+If current time is outside class periods return null.
+
+
+
+========================
+API ENDPOINTS
+========================
+
+GET /api/teachers
+
+GET /api/teachers/search?name=
+
+GET /api/teachers/by-time?day=&period=
+
+GET /api/teachers/current-office-hour
+
+
+POST /api/teachers
+
+PUT /api/teachers/:id
+
+DELETE /api/teachers/:id
+
+
+
+========================
+FRONTEND PAGES
+========================
+
+
+1. Teacher Search Page
+
+Users can:
+
+search teacher name
+
+filter by
+
+day
+period
+
+
+Display teacher cards.
+
+Card content:
+
+Name
+Department
+Subjects
+Office Hour
+Office Location
+Phone
+
+
+
+2. Current Office Hour Page
+
+Button:
+
+"Show teachers with Office Hour now"
+
+Steps:
+
+Detect Korean time
+
+Determine weekday
+
+Determine period
+
+Fetch teachers with matching office hours
+
+
+If no teachers exist display:
+
+"No teachers currently available."
+
+
+
+3. Admin Page
+
+Admin can:
+
+Add teacher
+Edit teacher
+Delete teacher
+
+
+Form fields:
+
+Name
+Department
+Subjects
+Office
+Phone
+
+
+
+Office Hour input must use checkbox UI.
+
+Checkbox layout:
+
+Monday:    1 2 3 4 5 6 7 8
+Tuesday:   1 2 3 4 5 6 7 8
+Wednesday: 1 2 3 4 5 6 7 8
+Thursday:  1 2 3 4 5 6 7 8
+Friday:    1 2 3 4 5 6 7 8
+
+
+Checked boxes are saved as office_hours records.
+
+
+
+========================
+UI DESIGN
+========================
+
+Main title:
+
+KSA Office Hour Finder
+
+
+Navigation tabs:
+
+Teacher Search
+Current Office Hour
+Admin
+
+
+Teacher card layout:
+
+--------------------------------
+Teacher Name
+Department
+Subjects
+Office Hour
+Office Location
+Phone
+--------------------------------
+
+
+Use clean minimal UI.
+
+Responsive design.
+
+Mobile friendly.
+
+
+
+========================
+CODE QUALITY
+========================
+
+Follow these rules.
+
+Modular architecture
+
+Separate controller / routes / utils
+
+Reusable React components
+
+Clean API services
+
+Readable code
+
+Comments for important logic
+
+
+
+========================
+OUTPUT
+========================
+
+Generate:
+
+1. database schema
+2. backend server
+3. teacher APIs
+4. React frontend
+5. admin dashboard
+6. teacher search UI
+7. current office hour logic
+8. API integration
+9. README with run instructions
+
+
+Include commands:
+
+npm install
+npm run dev
