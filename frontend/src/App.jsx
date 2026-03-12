@@ -29,7 +29,9 @@ export default function App() {
     <div className="app-root-shell">
       <header className="topbar">
         <button type="button" className="brand-button" onClick={handleGoSearch}>
-          <span className="brand-icon">K</span>
+          <span className="brand-icon">
+            <img src="/logo-mark.svg" alt="" />
+          </span>
           <span>{COPY.brand}</span>
         </button>
 

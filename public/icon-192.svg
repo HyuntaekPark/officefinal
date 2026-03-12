@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
-  <rect width="192" height="192" rx="48" fill="#eef2f7"/>
-  <rect x="12" y="12" width="168" height="168" rx="42" fill="#ffffff" stroke="#d8e0eb" stroke-width="6"/>
-  <text x="96" y="122" text-anchor="middle" font-size="88" font-family="KoPubWorld Dotum, Noto Sans KR, sans-serif" font-weight="700" fill="#2f5aa0">K</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#1475bf"/>
+  <text x="256" y="220" text-anchor="middle" font-size="170" font-family="KoPubWorld Dotum, Noto Sans KR, sans-serif" font-weight="300" fill="#ffffff" letter-spacing="-10">KSA</text>
+  <text x="256" y="390" text-anchor="middle" font-size="105" font-family="KoPubWorld Dotum, Noto Sans KR, sans-serif" font-weight="300" fill="#ffffff">Office</text>
 </svg>
