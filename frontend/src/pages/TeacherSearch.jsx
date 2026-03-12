@@ -33,7 +33,7 @@ const COPY = {
   byName: "이름으로 검색",
   bySubject: "과목으로 검색",
   byTime: "시간으로 검색",
-  namePlaceholder: "선생님 이름 검색 (예: 홍길동)",
+  namePlaceholder: "선생님 이름 검색 (예: 최종배)",
   subjectAll: "과목 전체",
   loading: "불러오는 중입니다...",
   searchByTime: "선생님 시간으로 검색",
@@ -171,20 +171,16 @@ export default function TeacherSearch() {
     setError("");
 
     try {
-      let result;
+      const result = day && period
+        ? await getTeachersByTime(day, period)
+        : allTeachers.filter((teacher) => {
+            const matchesDay = day ? teacher.officeHours.some((entry) => entry.day === day) : true;
+            const matchesPeriod = period
+              ? teacher.officeHours.some((entry) => entry.period === Number(period))
+              : true;
 
-      if (day && period) {
-        result = await getTeachersByTime(day, period);
-      } else {
-        result = allTeachers.filter((teacher) => {
-          const matchesDay = day ? teacher.officeHours.some((entry) => entry.day === day) : true;
-          const matchesPeriod = period
-            ? teacher.officeHours.some((entry) => entry.period === Number(period))
-            : true;
-
-          return matchesDay && matchesPeriod;
-        });
-      }
+            return matchesDay && matchesPeriod;
+          });
 
       setTeachers(result);
     } catch (requestError) {

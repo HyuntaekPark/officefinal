@@ -6,6 +6,14 @@ const DAY_LABELS = {
   Fri: "금"
 };
 
+const BUILDING_NUMBERS = {
+  본: "1",
+  탐: "2",
+  형: "3",
+  창: "5",
+  예: "6"
+};
+
 function getGroupedOfficeHours(officeHours = []) {
   const grouped = new Map();
 
@@ -21,8 +29,34 @@ function getGroupedOfficeHours(officeHours = []) {
   }));
 }
 
+function formatOfficeLabel(office) {
+  const value = String(office || "").trim();
+
+  if (!value) {
+    return "위치 정보 없음";
+  }
+
+  const prefix = value.charAt(0);
+  const buildingNumber = BUILDING_NUMBERS[prefix];
+
+  if (!buildingNumber) {
+    return value;
+  }
+
+  const remainder = value.slice(1);
+
+  if (!remainder) {
+    return value;
+  }
+
+  if (remainder.startsWith(buildingNumber)) {
+    return value;
+  }
+
+  return `${prefix}${buildingNumber}${remainder}`;
+}
+
 export default function TeacherCard({ teacher }) {
-  const initials = teacher.name ? teacher.name.slice(0, 1) : "?";
   const groupedOfficeHours = getGroupedOfficeHours(teacher.officeHours);
   const subjects = (teacher.subjects || "")
     .split(",")
@@ -39,7 +73,6 @@ export default function TeacherCard({ teacher }) {
           </div>
           <p className="teacher-department">{teacher.department}</p>
         </div>
-        <div className="teacher-avatar">{initials}</div>
       </div>
 
       <div className="teacher-subject-tags">
@@ -48,8 +81,8 @@ export default function TeacherCard({ teacher }) {
 
       <div className="teacher-contact-strip">
         <div className="teacher-contact-item">
-          <span className="teacher-contact-icon">⌖</span>
-          <span>{teacher.office}</span>
+          <span className="teacher-contact-icon">⌂</span>
+          <span>{formatOfficeLabel(teacher.office)}</span>
         </div>
         <div className="teacher-contact-item">
           <span className="teacher-contact-icon">◔</span>

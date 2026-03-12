@@ -96,8 +96,8 @@ button {
   justify-content: center;
   border-radius: 10px;
   border: 1px solid var(--border);
-  color: var(--primary-deep);
   background: #fff;
+  overflow: hidden;
   transition: transform 0.18s ease, border-color 0.18s ease;
 }
 
@@ -320,8 +320,6 @@ button {
 .select-shell {
   position: relative;
   cursor: pointer;
-  background:
-    linear-gradient(180deg, rgba(247, 250, 255, 0.92), rgba(240, 245, 252, 0.96));
 }
 
 .select-shell * {
@@ -404,7 +402,7 @@ button {
 
 .teacher-card-top {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 18px;
 }
@@ -431,21 +429,6 @@ button {
   margin: 12px 0 0;
   color: var(--primary);
   font-size: 1.18rem;
-}
-
-.teacher-avatar {
-  width: 64px;
-  height: 64px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: linear-gradient(180deg, #dbe4f1, #cbd6e5);
-  color: var(--primary);
-  font-size: 1.8rem;
-  font-weight: 800;
-  border: 1px solid #c5d0df;
-  flex-shrink: 0;
 }
 
 .teacher-subject-tags {
@@ -1075,14 +1058,6 @@ button {
     padding: 24px 14px 28px;
   }
 
-  .top-notice {
-    width: 100%;
-    margin-bottom: 16px;
-    padding: 12px 14px;
-    border-radius: 20px;
-    font-size: 0.98rem;
-  }
-
   .landing-hero h1 {
     max-width: 8.5ch;
     margin-inline: auto;
@@ -1090,10 +1065,6 @@ button {
     line-height: 1.08;
     word-break: keep-all;
     text-wrap: balance;
-  }
-
-  .landing-hero {
-    margin-bottom: 28px;
   }
 
   .landing-hero p {
@@ -1216,12 +1187,6 @@ button {
   .teacher-card-top {
     align-items: flex-start;
     gap: 14px;
-  }
-
-  .teacher-avatar {
-    width: 54px;
-    height: 54px;
-    font-size: 1.35rem;
   }
 
   .teacher-department {
