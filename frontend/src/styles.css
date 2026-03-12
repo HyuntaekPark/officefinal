@@ -335,7 +335,6 @@ button {
   border-color: var(--primary);
   transform: translateY(-55%) rotate(45deg);
 }
-
 .time-search-button {
   grid-column: 1 / -1;
   min-height: 68px;
@@ -951,7 +950,6 @@ button {
   color: var(--text-muted);
   line-height: 1.6;
 }
-
 .office-hour-table {
   display: grid;
   gap: 0;

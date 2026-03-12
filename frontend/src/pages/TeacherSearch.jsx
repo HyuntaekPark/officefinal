@@ -36,7 +36,7 @@ const COPY = {
   namePlaceholder: "선생님 이름 검색 (예: 홍길동)",
   subjectAll: "과목 전체",
   loading: "불러오는 중입니다...",
-  searchByTime: "선택한 시간으로 검색",
+  searchByTime: "선생님 시간으로 검색",
   emptyTitle: "검색 결과가 없습니다",
   emptyLine1: "조건에 맞는 선생님을 찾을 수 없습니다.",
   emptyLine2: "검색 조건을 변경해보세요."
@@ -53,10 +53,27 @@ function extractSubjects(teachers) {
   ).sort((a, b) => a.localeCompare(b, "ko"));
 }
 
+function openNativeSelect(selectRef) {
+  const element = selectRef.current;
+
+  if (!element) {
+    return;
+  }
+
+  element.focus();
+
+  if (typeof element.showPicker === "function") {
+    element.showPicker();
+    return;
+  }
+
+  element.click();
+}
+
 export default function TeacherSearch() {
+  const subjectSelectRef = useRef(null);
   const daySelectRef = useRef(null);
   const periodSelectRef = useRef(null);
-  const subjectSelectRef = useRef(null);
 
   const [mode, setMode] = useState(MODES.name);
   const [teachers, setTeachers] = useState([]);
@@ -67,23 +84,6 @@ export default function TeacherSearch() {
   const [period, setPeriod] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  function openNativeSelect(selectRef) {
-    const element = selectRef.current;
-
-    if (!element) {
-      return;
-    }
-
-    element.focus();
-
-    if (typeof element.showPicker === "function") {
-      element.showPicker();
-      return;
-    }
-
-    element.click();
-  }
 
   const subjects = useMemo(() => extractSubjects(allTeachers), [allTeachers]);
 
@@ -102,7 +102,7 @@ export default function TeacherSearch() {
 
       try {
         const trimmed = name.trim();
-        const result = trimmed ? await searchTeachers(trimmed) : allTeachers.length > 0 ? allTeachers : await getTeachers();
+        const result = trimmed ? await searchTeachers(trimmed) : allTeachers;
         setTeachers(result);
       } catch (requestError) {
         setTeachers([]);
@@ -156,9 +156,10 @@ export default function TeacherSearch() {
 
     try {
       const result = await getTeachers();
-      setTeachers(result);
       setAllTeachers(result);
+      setTeachers(result);
     } catch (requestError) {
+      setTeachers([]);
       setError(requestError.message);
     } finally {
       setLoading(false);
@@ -175,8 +176,7 @@ export default function TeacherSearch() {
       if (day && period) {
         result = await getTeachersByTime(day, period);
       } else {
-        result = await getTeachers();
-        result = result.filter((teacher) => {
+        result = allTeachers.filter((teacher) => {
           const matchesDay = day ? teacher.officeHours.some((entry) => entry.day === day) : true;
           const matchesPeriod = period
             ? teacher.officeHours.some((entry) => entry.period === Number(period))
@@ -236,7 +236,7 @@ export default function TeacherSearch() {
           </button>
         </div>
 
-        <div className={`search-panel ${mode === MODES.name ? "active" : ""}`}>
+        <div className="search-panel">
           {mode === MODES.name ? (
             <label className="search-input-shell name-search-shell">
               <span className="search-icon">⌕</span>
@@ -257,7 +257,7 @@ export default function TeacherSearch() {
                 openNativeSelect(subjectSelectRef);
               }}
             >
-              <span className="search-icon">▣</span>
+              <span className="search-icon">▤</span>
               <select
                 ref={subjectSelectRef}
                 value={subject}
@@ -333,7 +333,7 @@ export default function TeacherSearch() {
 
       {showEmpty ? (
         <div className="empty-state">
-          <div className="empty-icon">⌕</div>
+          <div className="empty-icon">×</div>
           <h3>{COPY.emptyTitle}</h3>
           <p>{COPY.emptyLine1}</p>
           <p>{COPY.emptyLine2}</p>
