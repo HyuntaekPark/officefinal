@@ -226,6 +226,8 @@ button {
   background: transparent;
   color: var(--text-muted);
   font-weight: 800;
+  line-height: 1.25;
+  text-wrap: balance;
   transition: color 0.18s ease, transform 0.18s ease;
 }
 
@@ -1054,35 +1056,133 @@ button {
 
 @media (max-width: 720px) {
   .topbar {
-    padding: 0 18px;
+    height: auto;
+    padding: 14px 16px;
+    align-items: center;
   }
 
   .app-root-content {
-    padding: 36px 16px 36px;
+    padding: 24px 14px 28px;
   }
 
   .top-notice {
     width: 100%;
-    border-radius: 18px;
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 20px;
+    font-size: 0.98rem;
   }
 
   .landing-hero h1 {
-    font-size: 2.6rem;
+    font-size: clamp(2.2rem, 13vw, 3rem);
+    line-height: 1.08;
+  }
+
+   .landing-hero {
+    margin-bottom: 28px;
+  }
+
+  .landing-hero p {
+    margin-top: 14px;
+    font-size: 1.02rem;
+    line-height: 1.55;
+  }
+
+  .brand-button {
+    gap: 10px;
+    min-width: 0;
+    font-size: 0.94rem;
+  }
+
+  .brand-button span:last-child {
+    display: inline-block;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .brand-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    font-size: 1rem;
+  }
+
+  .topbar-link {
+    min-height: 40px;
+    padding: 0 12px;
+    border-radius: 12px;
+    font-size: 0.92rem;
+    white-space: nowrap;
+  }
+
+  .search-layout {
+    gap: 24px;
+  }
+
+  .search-card {
+    padding: 12px;
+    border-radius: 24px;
+  }
+
+  .search-mode-tabs {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 0;
+    background: transparent;
+  }
+
+  .search-mode-tabs::before {
+    display: none;
+  }
+
+  .search-mode-button {
+    min-height: 50px;
+    padding: 0 14px;
+    background: #e8eef6;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  .search-mode-button.active {
+    background: #fff;
+    box-shadow: 0 10px 18px rgba(31, 51, 84, 0.08);
+  }
+
+  .search-panel {
+    margin-top: 14px;
+  }
+
+  .search-input-shell {
+    min-height: 64px;
+    padding: 0 18px;
+    border-radius: 20px;
+  }
+
+  .subject-search-shell {
+    max-width: none;
+  }
+
+  .time-search-grid {
+    grid-template-columns: 1fr;
   }
 
   .teacher-card {
-    padding: 24px;
+    padding: 22px 18px;
+    border-radius: 24px;
   }
 
   .teacher-name-row {
-    align-items: center;
+    align-items: baseline;
     flex-wrap: wrap;
+    gap: 8px;
   }
 
   .teacher-name-row h3,
   .admin-management-title h2,
   .admin-login-header h2 {
-    font-size: 1.9rem;
+    font-size: 1.65rem;
   }
 
   .admin-management-hero,
@@ -1092,7 +1192,50 @@ button {
   }
 
   .teacher-card-top {
-    align-items: center;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .teacher-avatar {
+    width: 54px;
+    height: 54px;
+    font-size: 1.35rem;
+  }
+
+  .teacher-department {
+    margin-top: 10px;
+    font-size: 1rem;
+  }
+
+  .teacher-subject-tags {
+    margin-top: 16px;
+    gap: 8px;
+  }
+
+  .teacher-subject-tags span {
+    min-height: 30px;
+    padding: 0 10px;
+    font-size: 0.9rem;
+  }
+
+  .teacher-contact-strip {
+    margin-top: 18px;
+    padding: 10px;
+  }
+
+  .teacher-contact-item {
+    min-height: 46px;
+    padding: 0 10px;
+    font-size: 0.94rem;
+    word-break: break-all;
+  }
+
+  .teacher-hours-section {
+    margin-top: 18px;
+  }
+
+  .teacher-hours-periods {
+    font-size: 0.96rem;
   }
 
   .office-hour-header,

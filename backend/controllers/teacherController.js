@@ -16,6 +16,13 @@ const DAY_ORDER = {
   Fri: 5
 };
 
+function normalizeNameKey(value) {
+  return String(value || "")
+    .replace(/\s+/g, "")
+    .trim()
+    .toLocaleLowerCase("ko");
+}
+
 function groupTeacherRows(rows) {
   const teacherMap = new Map();
 
@@ -53,8 +60,10 @@ async function fetchTeachers({ name, day, period } = {}) {
   const params = [];
 
   if (name) {
-    params.push(`%${escapeLikePattern(normalizeTeacherSearchName(name))}%`);
-    whereClauses.push(`t.name ILIKE $${params.length} ESCAPE '\\'`);
+    const normalizedName = normalizeTeacherSearchName(name);
+    const canonicalName = normalizedName.replace(/\s+/g, "");
+    params.push(`%${escapeLikePattern(canonicalName)}%`);
+    whereClauses.push(`REPLACE(LOWER(t.name), ' ', '') LIKE LOWER($${params.length}) ESCAPE '\\'`);
   }
 
   if (day && period) {
@@ -162,8 +171,17 @@ async function getAllTeachers(req, res, next) {
 
 async function searchTeachers(req, res, next) {
   try {
-    const teachers = await fetchTeachers({ name: req.query.name || "" });
-    res.json(teachers);
+    const searchName = req.query.name || "";
+    const teachers = await fetchTeachers({ name: searchName });
+    const normalizedQuery = normalizeNameKey(searchName);
+
+    if (!normalizedQuery) {
+      return res.json(teachers);
+    }
+
+    const exactMatches = teachers.filter((teacher) => normalizeNameKey(teacher.name) === normalizedQuery);
+
+    res.json(exactMatches.length > 0 ? exactMatches : teachers);
   } catch (error) {
     next(error);
   }
