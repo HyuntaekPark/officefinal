@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="128" fill="#eef2f7"/>
+  <rect x="32" y="32" width="448" height="448" rx="112" fill="#ffffff" stroke="#d8e0eb" stroke-width="16"/>
+  <text x="256" y="330" text-anchor="middle" font-size="240" font-family="KoPubWorld Dotum, Noto Sans KR, sans-serif" font-weight="700" fill="#2f5aa0">K</text>
+</svg>

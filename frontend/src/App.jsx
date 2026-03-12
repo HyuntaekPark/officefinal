@@ -4,7 +4,7 @@ import AdminPage from "./pages/AdminPage";
 import { clearAdminToken } from "./services/api";
 
 const COPY = {
-  brand: "KSA Office Hour",
+  brand: "KSA Office",
   admin: "관리자 페이지",
   title: "선생님, 지금 어디 계세요?",
   subtitle: "KSA 선생님들의 Office Hour 시간과 위치를 간편하게 확인하세요.",
